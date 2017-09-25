@@ -108,6 +108,82 @@ class Students extends CI_Controller {
 	    }
 
 	}
+
+	// Delete the students category
+	public function delete_students_category()
+	{
+		$this -> load -> model('Student_Model');
+
+		$deleteCategoryName = ($this -> input -> get('category_name'));
+
+		$deleteCategoryData = $this -> Student_Model -> delete_students_category($deleteCategoryName);
+
+		if($deleteCategoryData != FALSE)
+		{
+			$result=array('status' => 1,'response' => 'DB Success','message' => 'Category Succesfully Deleted ');
+			
+			echo json_encode($result);
+		}
+		else
+	  	{
+			$result=array('status' => 0,'response' => 'DB Fail','message' => 'Category Deleted Failed');
+			
+			echo json_encode($result);
+	    }
+	}
+
+	// update the students category
+	public function update_students_category() 
+	{
+		$this -> load -> model('Student_Model');
+
+		$updateCategoryId = ($this -> input -> get('category_id'));
+
+		$updateCategoryName = ($this -> input -> get('category_name'));
+
+		$updateCategoryData = $this -> Student_Model -> update_students_category($updateCategoryId, $updateCategoryName);
+
+		if($updateCategoryData != FALSE)
+		{
+			$result=array('status' => 1,'response' => 'DB Success','message' => 'Category Succesfully updated ');
+			
+			echo json_encode($result);
+		}
+		else
+	  	{
+			$result=array('status' => 0,'response' => 'DB Fail','message' => 'Category Updated Failed');
+			
+			echo json_encode($result);
+	    }
+
+	}
+
+	// Insert the Basic student details
+	public function set_students_basic_details()
+	{
+		$this -> load -> model('Student_Model');
+
+		$student_name 	= ($this -> input -> get('student_name'));
+
+		$student_basic_details = array(
+			'student_name' => $student_name
+		);
+
+		$categoryData = $this -> Student_Model -> set_students_details($student_basic_details);
+
+		if($categoryData != FALSE)
+		{
+			$result=array('status' => 1,'response' => 'DB Success','message' => 'Student Succesfully Added');
+			
+			echo json_encode($result);
+		}
+		else
+	  	{
+			$result=array('status' => 0,'response' => 'DB Fail','message' => 'Student Added Failed');
+			
+			echo json_encode($result);
+	    }
+	}
 }
 
 ?>
